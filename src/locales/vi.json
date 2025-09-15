@@ -1,0 +1,54 @@
+{
+  "app": {
+    "title": "Rút gọn URL",
+    "description": "Rút gọn URL dài của bạn một cách nhanh chóng và dễ dàng"
+  },
+  "shortener": {
+    "inputPlaceholder": "Nhập URL dài của bạn vào đây...",
+    "shortenButton": "Rút gọn URL",
+    "copyButton": "Sao chép",
+    "copiedButton": "Đã sao chép!",
+    "clearButton": "Xóa",
+    "shortUrlLabel": "URL ngắn:",
+    "originalUrlLabel": "URL gốc:",
+    "error": {
+      "invalidUrl": "Vui lòng nhập URL hợp lệ",
+      "networkError": "Lỗi mạng. Vui lòng thử lại.",
+      "serverError": "Lỗi máy chủ. Vui lòng thử lại sau."
+    }
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu"
+  },
+  "about": {
+    "title": "Giới thiệu về Rút gọn URL",
+    "description": "Một công cụ rút gọn URL đơn giản và nhanh chóng được xây dựng với Vue 3 và TypeScript."
+  },
+  "auth": {
+    "login": {
+      "title": "Đăng nhập",
+      "description": "Nhập thông tin đăng nhập để truy cập tài khoản"
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "description": "Đăng ký để bắt đầu rút gọn URL"
+    },
+    "name": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "namePlaceholder": "Nhập họ và tên của bạn",
+    "emailPlaceholder": "Nhập email của bạn",
+    "passwordPlaceholder": "Nhập mật khẩu của bạn",
+    "confirmPasswordPlaceholder": "Xác nhận mật khẩu của bạn",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "forgotPassword": "Quên mật khẩu?",
+    "agreeTerms": "Tôi đồng ý với",
+    "termsOfService": "Điều khoản sử dụng",
+    "haveAccount": "Đã có tài khoản?",
+    "noAccount": "Chưa có tài khoản?",
+    "loggingIn": "Đang đăng nhập...",
+    "registering": "Đang tạo tài khoản..."
+  }
+}
