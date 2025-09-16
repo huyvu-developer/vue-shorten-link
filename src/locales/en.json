@@ -25,6 +25,44 @@
     "title": "About URL Shortener",
     "description": "A simple and fast URL shortener built with Vue 3 and TypeScript."
   },
+  "language": {
+    "english": "English",
+    "vietnamese": "Tiếng Việt"
+  },
+  "homepage": {
+    "hero": {
+      "title1": "Shorten Your Long",
+      "title2": "Links :)",
+      "description": "is an efficient and easy-to-use URL shortening service that streamlines your online experience."
+    },
+    "shortener": {
+      "button": "Shorten Now!"
+    },
+    "table": {
+      "title": "Your Recent Links",
+      "headers": {
+        "shortLink": "Short Link",
+        "originalLink": "Original Link",
+        "qrCode": "QR Code",
+        "clicks": "Clicks",
+        "status": "Status",
+        "date": "Date"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "footer": "Register NOW to enjoy Unlimited History"
+    }
+  },
+  "header": {
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "footer": {
+    "description": "is an efficient and easy-to-use URL shortening service that streamlines your online experience.",
+    "copyright": "All rights reserved."
+  },
   "auth": {
     "login": {
       "title": "Sign In",
@@ -49,6 +87,11 @@
     "haveAccount": "Already have an account?",
     "noAccount": "Don't have an account?",
     "loggingIn": "Signing in...",
-    "registering": "Creating account..."
+    "registering": "Creating account...",
+    "required": "is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "nameTooShort": "Name must be at least 2 characters",
+    "passwordsDoNotMatch": "Passwords do not match"
   }
 }

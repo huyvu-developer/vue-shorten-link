@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { APP_NAME } from '@/constants/env'
+
+const { t } = useI18n()
+</script>
 
 <template>
   <footer class="py-12 bg-primary border-t border-border-primary">
@@ -9,11 +14,10 @@
           <h3
             class="text-2xl font-bold bg-gradient-to-r from-text-primary to-brand-blue bg-clip-text text-transparent mb-4"
           >
-            Linkly
+            {{ APP_NAME }}
           </h3>
           <p class="text-sm leading-relaxed max-w-md text-text-secondary">
-            Linkly is an efficient and easy-to-use URL shortening service that streamlines your
-            online experience.
+            {{ APP_NAME }} {{ t('footer.description') }}
           </p>
         </div>
 
@@ -74,7 +78,9 @@
 
       <!-- Bottom Bar -->
       <div class="mt-8 flex flex-col sm:flex-row justify-between items-center">
-        <p class="text-sm text-text-secondary">© 2024 Linkly. All rights reserved.</p>
+        <p class="text-sm text-text-secondary">
+          © 2024 {{ APP_NAME }}. {{ t('footer.copyright') }}
+        </p>
         <div class="flex items-center gap-4 mt-4 sm:mt-0">
           <a href="#" class="text-text-secondary hover:text-text-primary transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

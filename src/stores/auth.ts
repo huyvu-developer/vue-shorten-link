@@ -1,24 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-
-export interface User {
-  id: string
-  email: string
-  name: string
-  avatar?: string
-}
-
-export interface LoginCredentials {
-  email: string
-  password: string
-}
-
-export interface RegisterCredentials {
-  name: string
-  email: string
-  password: string
-  confirmPassword: string
-}
+import type { User } from '@/types/user'
+import type { LoginRequestDto, RegisterRequestDto } from '@/types/auth'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -28,7 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => !!user.value)
 
   // Actions
-  const login = async (credentials: LoginCredentials) => {
+  const login = async (credentials: LoginRequestDto) => {
     isLoading.value = true
     error.value = null
 
@@ -40,8 +23,12 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = {
         id: '1',
         email: credentials.email,
-        name: 'John Doe',
+        fullName: 'John Doe',
         avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        status: 'active',
+        shortLinks: [],
       }
 
       // Store in localStorage
@@ -54,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const register = async (credentials: RegisterCredentials) => {
+  const register = async (credentials: RegisterRequestDto) => {
     isLoading.value = true
     error.value = null
 
@@ -71,8 +58,12 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = {
         id: '1',
         email: credentials.email,
-        name: credentials.name,
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + credentials.name,
+        fullName: credentials.fullName,
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + credentials.fullName,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        status: 'active',
+        shortLinks: [],
       }
 
       // Store in localStorage
