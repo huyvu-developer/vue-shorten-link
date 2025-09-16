@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import LDefault from '@/layouts/LDefault.vue'
+import { APP_NAME } from '@/constants/env'
 
+const { t } = useI18n()
 const auth = useAuthStore()
 
 const urlInput = ref('')
-const autoPaste = ref(true)
 
 // Sample data for the table
 const urlHistory = ref([
@@ -16,7 +18,7 @@ const urlHistory = ref([
     originalLink: 'https://www.twitter.com/tweets/8erelCoihu/',
     qrCode: 'QR',
     clicks: 1313,
-    status: 'Active',
+    status: 'active',
     date: 'Oct - 10 -2023',
   },
   {
@@ -25,7 +27,7 @@ const urlHistory = ref([
     originalLink: 'https://www.youtube.com/watch?v=8J7ZmH0lXuk',
     qrCode: 'QR',
     clicks: 4313,
-    status: 'Inactive',
+    status: 'inactive',
     date: 'Oct - 08 -2023',
   },
   {
@@ -34,7 +36,7 @@ const urlHistory = ref([
     originalLink: 'https://www.adventuresinwanderlust.com/',
     qrCode: 'QR',
     clicks: 1013,
-    status: 'Active',
+    status: 'active',
     date: 'Oct - 01 -2023',
   },
   {
@@ -43,7 +45,7 @@ const urlHistory = ref([
     originalLink: 'https://vimeo.com/625257654',
     qrCode: 'QR',
     clicks: 1313,
-    status: 'Active',
+    status: 'active',
     date: 'Sep - 20 -2023',
   },
   {
@@ -52,7 +54,7 @@ const urlHistory = ref([
     originalLink: 'https://unsplash.com/photos/2KjNwOzFfVQ',
     qrCode: 'QR',
     clicks: 1423,
-    status: 'Active',
+    status: 'active',
     date: 'Sep - 18 -2023',
   },
   {
@@ -61,7 +63,7 @@ const urlHistory = ref([
     originalLink: 'https://www.travelwithth...',
     qrCode: 'QR',
     clicks: 3213,
-    status: 'Inactive',
+    status: 'inactive',
     date: 'Sep - 01 -2023',
   },
 ])
@@ -85,16 +87,15 @@ const shortenUrl = () => {
           <h1
             class="text-5xl sm:text-6xl md:text-7xl font-bold mb-4 leading-tight text-text-primary"
           >
-            Shorten Your Loooong
+            {{ t('homepage.hero.title1') }}
           </h1>
           <h2
             class="text-5xl sm:text-6xl md:text-7xl font-bold bg-clip-text text-transparent mb-8 leading-tight bg-gradient-to-r from-brand-blue to-brand-cyan"
           >
-            Links :)
+            {{ t('homepage.hero.title2') }}
           </h2>
           <p class="text-xl mb-12 max-w-2xl mx-auto leading-relaxed text-text-secondary">
-            Linkly is an efficient and easy-to-use URL shortening service that streamlines your
-            online experience.
+            {{ APP_NAME }} {{ t('homepage.hero.description') }}
           </p>
 
           <!-- URL Shortener -->
@@ -118,46 +119,10 @@ const shortenUrl = () => {
               </div>
               <Button
                 @click="shortenUrl"
-                class="bg-gradient-to-r from-brand-blue to-brand-cyan hover:from-brand-blue/90 hover:to-brand-cyan/90 px-10 py-5 text-lg font-semibold w-full sm:w-auto rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-text-primary"
+                class="bg-gradient-to-r from-brand-blue to-brand-cyan hover:from-brand-blue/90 hover:to-brand-cyan/90 px-10 py-5 text-lg font-semibold w-full sm:w-auto rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-text-primary cursor-pointer"
               >
-                Shorten Now!
+                {{ t('homepage.shortener.button') }}
               </Button>
-            </div>
-
-            <!-- Auto Paste Option -->
-            <div
-              class="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-6 pt-6 border-t gap-4 border-border-primary"
-            >
-              <div class="flex items-center gap-3">
-                <Switch v-model="autoPaste" />
-                <span class="text-base font-medium text-text-secondary">
-                  Auto Paste from Clipboard
-                </span>
-              </div>
-
-              <div class="flex items-center gap-4">
-                <p class="text-sm text-text-secondary">
-                  You can create
-                  <span class="font-semibold text-brand-blue">05</span> more links.
-                  <span
-                    class="underline cursor-pointer hover:text-brand-cyan transition-colors text-brand-blue"
-                  >
-                    Register Now
-                  </span>
-                  to enjoy Unlimited usage
-                </p>
-                <div
-                  class="w-6 h-6 cursor-pointer flex-shrink-0 transition-colors text-text-secondary hover:text-brand-blue"
-                >
-                  <svg class="w-full h-full" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -171,7 +136,9 @@ const shortenUrl = () => {
           >
             <!-- Table Header -->
             <div class="px-6 py-4 border-b border-border-primary bg-secondary">
-              <h3 class="text-xl font-semibold text-text-primary">Your Recent Links</h3>
+              <h3 class="text-xl font-semibold text-text-primary">
+                {{ t('homepage.table.title') }}
+              </h3>
             </div>
 
             <!-- Table -->
@@ -182,32 +149,32 @@ const shortenUrl = () => {
                     <th
                       class="px-6 py-4 text-left text-sm font-medium uppercase tracking-wider text-text-secondary"
                     >
-                      Short Link
+                      {{ t('homepage.table.headers.shortLink') }}
                     </th>
                     <th
                       class="px-6 py-4 text-left text-sm font-medium uppercase tracking-wider text-text-secondary"
                     >
-                      Original Link
+                      {{ t('homepage.table.headers.originalLink') }}
                     </th>
                     <th
                       class="px-6 py-4 text-center text-sm font-medium uppercase tracking-wider text-text-secondary"
                     >
-                      QR Code
+                      {{ t('homepage.table.headers.qrCode') }}
                     </th>
                     <th
                       class="px-6 py-4 text-center text-sm font-medium uppercase tracking-wider text-text-secondary"
                     >
-                      Clicks
+                      {{ t('homepage.table.headers.clicks') }}
                     </th>
                     <th
                       class="px-6 py-4 text-center text-sm font-medium uppercase tracking-wider text-text-secondary"
                     >
-                      Status
+                      {{ t('homepage.table.headers.status') }}
                     </th>
                     <th
                       class="px-6 py-4 text-left text-sm font-medium uppercase tracking-wider text-text-secondary"
                     >
-                      Date
+                      {{ t('homepage.table.headers.date') }}
                     </th>
                   </tr>
                 </thead>
@@ -251,18 +218,18 @@ const shortenUrl = () => {
                       <div class="flex items-center justify-center gap-2">
                         <span
                           class="text-sm"
-                          :class="item.status === 'Active' ? 'text-success' : 'text-error'"
+                          :class="item.status === 'active' ? 'text-success' : 'text-error'"
                         >
-                          {{ item.status }}
+                          {{ t(`homepage.table.status.${item.status}`) }}
                         </span>
                         <svg
-                          :class="item.status === 'Active' ? 'text-success' : 'text-error'"
+                          :class="item.status === 'active' ? 'text-success' : 'text-error'"
                           class="w-4 h-4"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
                           <path
-                            v-if="item.status === 'Active'"
+                            v-if="item.status === 'active'"
                             fill-rule="evenodd"
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                             clip-rule="evenodd"
@@ -287,7 +254,7 @@ const shortenUrl = () => {
             <!-- Table Footer -->
             <div class="px-6 py-4 border-t border-border-primary bg-secondary">
               <p class="text-sm text-center text-text-secondary">
-                Register NOW to enjoy Unlimited History
+                {{ t('homepage.table.footer') }}
               </p>
             </div>
           </div>

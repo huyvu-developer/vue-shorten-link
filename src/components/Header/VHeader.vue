@@ -1,11 +1,18 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { onMounted, onUnmounted, ref } from 'vue'
 import LanguageButton from './Partials/LanguageButton.vue'
+import Login from '@/components/Auth/VLogin.vue'
+import Register from '@/components/Auth/VRegister.vue'
+import { APP_NAME } from '@/constants/env'
 
+const { t } = useI18n()
 const auth = useAuthStore()
 
 const isScrolled = ref(false)
+const showLoginDialog = ref(false)
+const showRegisterDialog = ref(false)
 let scrollTimeout: number | null = null
 
 onMounted(() => {
@@ -32,6 +39,33 @@ const handleScroll = () => {
     isScrolled.value = scrollY > 10
   }, 10)
 }
+
+// Dialog handlers
+const openLoginDialog = () => {
+  showLoginDialog.value = true
+}
+
+const closeLoginDialog = () => {
+  showLoginDialog.value = false
+}
+
+const closeRegisterDialog = () => {
+  showRegisterDialog.value = false
+}
+
+const switchToRegister = () => {
+  showLoginDialog.value = false
+  showRegisterDialog.value = true
+}
+
+const switchToLogin = () => {
+  showRegisterDialog.value = false
+  showLoginDialog.value = true
+}
+
+const logout = () => {
+  auth.logout()
+}
 </script>
 
 <template>
@@ -48,23 +82,56 @@ const handleScroll = () => {
         <h1
           class="text-2xl font-bold transition-colors duration-300 bg-clip-text text-transparent bg-gradient-to-r from-text-primary to-brand-blue"
         >
-          Linkly
+          {{ APP_NAME }}
         </h1>
       </div>
 
       <div class="flex items-center gap-3">
-        <!-- Language Switch -->
+        <!-- Auth Buttons -->
+        <div v-if="!auth.isAuthenticated" class="flex items-center gap-2">
+          <button
+            @click="openLoginDialog"
+            class="px-4 py-2 rounded-lg transition-all duration-300 bg-secondary border border-border-primary text-text-secondary hover:bg-brand-blue hover:text-text-primary cursor-pointer"
+          >
+            <span class="text-sm">{{ t('header.login') }}</span>
+          </button>
+        </div>
 
-        <button
-          class="px-4 py-2 rounded-lg transition-all duration-300 bg-secondary border border-border-primary text-text-secondary hover:bg-brand-blue hover:text-text-primary"
-        >
-          <span class="text-sm">Login</span>
-        </button>
+        <!-- User Menu -->
+        <div v-else class="flex items-center gap-3">
+          <div class="flex items-center gap-2">
+            <img
+              v-if="auth.user?.avatar"
+              :src="auth.user.avatar"
+              :alt="auth.user.fullName"
+              class="w-8 h-8 rounded-full border-2 border-white"
+            />
+            <span class="text-sm text-text-primary hidden sm:block">{{ auth.user?.fullName }}</span>
+          </div>
+          <button
+            @click="logout"
+            class="px-4 py-2 rounded-lg transition-all duration-300 bg-red-500 text-white hover:bg-red-600 cursor-pointer"
+          >
+            <span class="text-sm">{{ t('header.logout') }}</span>
+          </button>
+        </div>
 
         <LanguageButton />
       </div>
     </div>
   </header>
+
+  <!-- Auth Dialogs -->
+  <Login
+    :is-open="showLoginDialog"
+    @close="closeLoginDialog"
+    @switch-to-register="switchToRegister"
+  />
+  <Register
+    :is-open="showRegisterDialog"
+    @close="closeRegisterDialog"
+    @switch-to-login="switchToLogin"
+  />
 </template>
 
 <style lang="scss" scoped></style>
