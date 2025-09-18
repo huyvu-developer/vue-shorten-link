@@ -38,6 +38,17 @@
     "shortener": {
       "button": "Shorten Now!"
     },
+    "result": {
+      "title": "Short Link Created!",
+      "description": "Your shortened URL is ready to use",
+      "shortUrlLabel": "Short URL:",
+      "originalUrlLabel": "Original URL:",
+      "copyButton": "Copy Link",
+      "copiedButton": "Copied!",
+      "generateQrButton": "Generate QR Code",
+      "generatingQrButton": "Generating QR Code...",
+      "qrDescription": "Scan to visit the shortened URL"
+    },
     "table": {
       "title": "Your Recent Links",
       "headers": {
@@ -57,11 +68,31 @@
   },
   "header": {
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "profile": "Profile"
+  },
+  "redirect": {
+    "loading": "Redirecting...",
+    "countdown": "You will be redirected in {{count}} seconds",
+    "error": "Link not found or expired",
+    "errorDescription": "The link you're looking for doesn't exist or has expired.",
+    "goHome": "Go to Homepage"
   },
   "footer": {
     "description": "is an efficient and easy-to-use URL shortening service that streamlines your online experience.",
     "copyright": "All rights reserved."
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "shortLinks": "Short Links",
+    "analytics": "Analytics",
+    "settings": "Settings"
+  },
+  "badge": {
+    "new": "New",
+    "pro": "Pro"
   },
   "auth": {
     "login": {

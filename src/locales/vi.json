@@ -38,6 +38,17 @@
     "shortener": {
       "button": "Rút gọn ngay!"
     },
+    "result": {
+      "title": "Đã tạo liên kết ngắn!",
+      "description": "URL rút gọn của bạn đã sẵn sàng sử dụng",
+      "shortUrlLabel": "URL ngắn:",
+      "originalUrlLabel": "URL gốc:",
+      "copyButton": "Sao chép liên kết",
+      "copiedButton": "Đã sao chép!",
+      "generateQrButton": "Tạo mã QR",
+      "generatingQrButton": "Đang tạo mã QR...",
+      "qrDescription": "Quét để truy cập URL rút gọn"
+    },
     "table": {
       "title": "Liên kết gần đây của bạn",
       "headers": {
@@ -57,11 +68,31 @@
   },
   "header": {
     "login": "Đăng nhập",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "profile": "Quản lý tài khoản"
+  },
+  "redirect": {
+    "loading": "Đang chuyển hướng...",
+    "countdown": "Bạn sẽ được chuyển hướng sau {{count}} giây",
+    "error": "Liên kết không tồn tại hoặc đã hết hạn",
+    "errorDescription": "Liên kết bạn đang tìm kiếm không tồn tại hoặc đã hết hạn.",
+    "goHome": "Về trang chủ"
   },
   "footer": {
     "description": "là dịch vụ rút gọn URL hiệu quả và dễ sử dụng giúp tối ưu hóa trải nghiệm trực tuyến của bạn.",
     "copyright": "Tất cả quyền được bảo lưu."
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "dashboard": "Trang chủ",
+    "profile": "Hồ sơ",
+    "shortLinks": "Liên kết ngắn",
+    "analytics": "Phân tích",
+    "settings": "Cài đặt"
+  },
+  "badge": {
+    "new": "Mới",
+    "pro": "Pro"
   },
   "auth": {
     "login": {

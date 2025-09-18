@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { User } from '@/types/user'
-import type { LoginRequestDto, RegisterRequestDto } from '@/types/auth'
+import type { LoginRequest, RegisterRequest } from '@/types/auth'
+import authService from '@/services/auth'
+import type { ApiResponse } from '@/types/common'
+import { setCookie, getCookie, removeCookie } from '@/utils/cookies'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -11,63 +14,42 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => !!user.value)
 
   // Actions
-  const login = async (credentials: LoginRequestDto) => {
+  const login = async (credentials: LoginRequest) => {
     isLoading.value = true
     error.value = null
 
     try {
-      // Mock API call - replace with real API
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Simulate successful login
-      user.value = {
-        id: '1',
-        email: credentials.email,
-        fullName: 'John Doe',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        status: 'active',
-        shortLinks: [],
+      const response = await authService.login(credentials)
+      if (response.statusCode === 201) {
+        user.value = response.data.user
+        setCookie('accessToken', response.data.accessToken)
+      } else {
+        error.value = 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.'
       }
-
-      // Store in localStorage
-      localStorage.setItem('user', JSON.stringify(user.value))
     } catch (err) {
-      error.value = 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.'
+      error.value =
+        err instanceof Error ? err.message : 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.'
       throw err
     } finally {
       isLoading.value = false
     }
   }
 
-  const register = async (credentials: RegisterRequestDto) => {
+  const register = async (credentials: RegisterRequest) => {
     isLoading.value = true
     error.value = null
 
     try {
-      // Validate passwords match
       if (credentials.password !== credentials.confirmPassword) {
         throw new Error('Mật khẩu xác nhận không khớp')
       }
 
-      // Mock API call - replace with real API
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Simulate successful registration
-      user.value = {
-        id: '1',
-        email: credentials.email,
-        fullName: credentials.fullName,
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + credentials.fullName,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        status: 'active',
-        shortLinks: [],
+      const response = await authService.register(credentials)
+      if (response.statusCode === 201) {
+        user.value = response.data
+      } else {
+        error.value = 'Đăng ký thất bại. Vui lòng thử lại.'
       }
-
-      // Store in localStorage
-      localStorage.setItem('user', JSON.stringify(user.value))
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Đăng ký thất bại. Vui lòng thử lại.'
       throw err
@@ -78,38 +60,49 @@ export const useAuthStore = defineStore('auth', () => {
 
   const logout = () => {
     user.value = null
-    localStorage.removeItem('user')
+    removeCookie('accessToken')
   }
 
   const clearError = () => {
     error.value = null
   }
 
-  // Initialize from localStorage
-  const initAuth = () => {
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      try {
-        user.value = JSON.parse(storedUser)
-      } catch (err) {
-        console.error('Failed to parse stored user:', err)
-        localStorage.removeItem('user')
+  const authorize = async () => {
+    isLoading.value = true
+    error.value = null
+
+    try {
+      const accessToken = getCookie('accessToken')
+      if (accessToken) {
+        const response: ApiResponse<User> = await authService.verify()
+        if (response.statusCode === 200) {
+          user.value = response.data
+        } else {
+          removeCookie('accessToken')
+          user.value = null
+        }
+      } else {
+        removeCookie('accessToken')
+        user.value = null
       }
+    } catch (err) {
+      removeCookie('accessToken')
+      user.value = null
+      error.value = err instanceof Error ? err.message : 'Xác thực thất bại'
+    } finally {
+      isLoading.value = false
     }
   }
 
   return {
-    // State
     user,
     isLoading,
     error,
     isAuthenticated,
-
-    // Actions
     login,
     register,
     logout,
     clearError,
-    initAuth,
+    authorize,
   }
 })
