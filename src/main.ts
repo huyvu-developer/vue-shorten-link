@@ -5,6 +5,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import { useAuthStore } from '@/stores/auth'
 
 // Define the type for plugin modules
 type PluginModule = {
@@ -22,7 +23,10 @@ const plugins = Object.values(pluginModules).map((module) => module.default)
 const app = createApp(App)
 
 app.use(createPinia())
+const authStore = useAuthStore()
+await authStore.authorize()
 app.use(router)
+
 /**
  * Register plugin
  */

@@ -2,7 +2,7 @@
 import { ref, computed, watch, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
-import type { LoginRequestDto } from '@/types/auth'
+import type { LoginRequest } from '@/types/auth'
 
 interface Props {
   isOpen: boolean
@@ -20,7 +20,7 @@ const { t } = useI18n()
 const auth = useAuthStore()
 
 // Form state
-const form = ref<LoginRequestDto>({
+const form = ref<LoginRequest>({
   email: '',
   password: '',
 })

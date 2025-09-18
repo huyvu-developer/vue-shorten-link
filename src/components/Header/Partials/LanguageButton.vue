@@ -49,7 +49,7 @@ onUnmounted(() => {
     <button
       ref="buttonRef"
       @click="togglePopover"
-      class="relative inline-flex items-center gap-2 text-text-secondary transition-colors bg-secondary border border-border-primary rounded-full hover:text-text-primary h-10 pl-2 pr-3 hover:bg-accent"
+      class="relative inline-flex items-center gap-2 text-text-secondary transition-colors bg-secondary border border-border-primary rounded-xl hover:text-text-primary h-10 pl-2 pr-3 hover:bg-accent"
     >
       <span
         class="inline-flex h-7 w-7 overflow-hidden rounded-full border border-border-primary bg-secondary"

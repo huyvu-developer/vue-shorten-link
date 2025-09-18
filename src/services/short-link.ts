@@ -1,24 +1,29 @@
-import type { ShortLinkRequestDto } from '@/types/short-link'
+import type { ApiResponse } from '@/types/common'
+import type { ShortLink, ShortLinkRequestDto } from '@/types/short-link'
 import { useAxiosProxy } from '@/utils/axios'
 
 const instance = useAxiosProxy()
 
-export const redirect = async (shortCode: string) => {
-  const response = await instance.get(`/short-link/redirect/${shortCode}`)
+const redirect = async (shortCode: string) => {
+  const response = await instance.get(`/short-links/redirect/${shortCode}`)
   return response.data
 }
 
-export const findAll = async () => {
-  const response = await instance.get('/short-link')
-  return response.data
+const findAll = async (): Promise<ApiResponse<ShortLink[]>> => {
+  return await instance.get('/short-links')
 }
 
-export const create = async (payload: ShortLinkRequestDto) => {
-  const response = await instance.post('/short-link', payload)
-  return response.data
+const create = async (payload: ShortLinkRequestDto): Promise<ApiResponse<ShortLink>> => {
+  return await instance.post('/short-links', payload)
 }
 
-export const me = async () => {
-  const response = await instance.get('/short-link/me')
-  return response.data
+const me = async (): Promise<ApiResponse<ShortLink[]>> => {
+  return await instance.get('/short-links/me')
+}
+
+export default {
+  redirect,
+  findAll,
+  create,
+  me,
 }
