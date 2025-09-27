@@ -36,28 +36,28 @@ const menuGroups = computed<MenuGroup[]>(() => [
       {
         icon: 'material-symbols:dashboard',
         name: t('sidebar.dashboard'),
-        path: '/',
+        path: '/dashboard',
       },
-      {
-        icon: 'material-symbols:person',
-        name: t('sidebar.profile'),
-        path: '/me',
-      },
-      {
-        name: t('sidebar.shortLinks'),
-        icon: 'material-symbols:link',
-        path: '/links',
-      },
-      {
-        name: t('sidebar.analytics'),
-        icon: 'material-symbols:analytics',
-        path: '/analytics',
-      },
-      {
-        name: t('sidebar.settings'),
-        icon: 'material-symbols:settings',
-        path: '/settings',
-      },
+      // {
+      //   icon: 'material-symbols:person',
+      //   name: t('sidebar.profile'),
+      //   path: '/profile',
+      // },
+      // {
+      //   name: t('sidebar.shortLinks'),
+      //   icon: 'material-symbols:link',
+      //   path: '/short-links',
+      // },
+      // {
+      //   name: t('sidebar.analytics'),
+      //   icon: 'material-symbols:analytics',
+      //   path: '/analytics',
+      // },
+      // {
+      //   name: t('sidebar.settings'),
+      //   icon: 'material-symbols:settings',
+      //   path: '/settings',
+      // },
     ],
   },
 ])
@@ -175,7 +175,7 @@ const endTransition = (el: Element) => {
               </template>
               <div v-else class="w-1 h-1 bg-text-secondary rounded-full"></div>
             </h2>
-            <ul :class="['flex flex-col', !isExpanded && !isHovered ? 'lg:gap-2' : 'gap-4']">
+            <ul class="flex flex-col gap-2">
               <li v-for="(item, index) in menuGroup.items" :key="item.name">
                 <button
                   v-if="item.subItems"
@@ -221,9 +221,9 @@ const endTransition = (el: Element) => {
                   v-else-if="item.path"
                   :to="item.path"
                   :class="[
-                    'flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-md min-h-[48px] group',
+                    'flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-md group',
                     {
-                      'bg-gradient-to-r from-brand-blue to-brand-cyan text-white shadow-xl transform scale-[1.02]':
+                      'bg-[color-mix(in_oklab,#465fff_12%,transparent)] text-[#7592ff] transform scale-[1.02]':
                         isActive(item.path),
                       'text-text-secondary hover:bg-secondary hover:text-text-primary hover:shadow-sm':
                         !isActive(item.path),
@@ -233,15 +233,18 @@ const endTransition = (el: Element) => {
                 >
                   <span
                     :class="[
-                      'w-5 h-5 flex-shrink-0 flex items-center justify-center min-w-[20px] min-h-[20px]',
+                      'w-4 h-4 flex-shrink-0 flex items-center justify-center',
                       isActive(item.path) ? 'text-white drop-shadow-sm' : 'text-text-secondary',
                     ]"
                   >
-                    <Icon :icon="item.icon" class="w-5 h-5" />
+                    <Icon
+                      :icon="item.icon"
+                      class="w-5 h-5 text-[#7592ff]"
+                    />
                   </span>
                   <span
                     v-if="isExpanded || isHovered || isMobileOpen"
-                    class="flex-1 text-left font-semibold text-base leading-tight whitespace-nowrap overflow-hidden transition-all duration-300"
+                    class="flex-1 text-left font-medium text-sm transition-all duration-300 block"
                     >{{ item.name }}</span
                   >
                 </router-link>

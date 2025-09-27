@@ -43,19 +43,27 @@
       "description": "Your shortened URL is ready to use",
       "shortUrlLabel": "Short URL:",
       "originalUrlLabel": "Original URL:",
-      "copyButton": "Copy Link",
+      "copyButton": "Copy",
       "copiedButton": "Copied!",
-      "generateQrButton": "Generate QR Code",
+      "generateQrButton": "QR Code",
       "generatingQrButton": "Generating QR Code...",
-      "qrDescription": "Scan to visit the shortened URL"
+      "downloadQrButton": "Download QR Code",
+      "qrDescription": "Scan to visit the shortened URL",
+      "qrDialogTitle": "QR Code",
+      "qrDialogGenerating": "Generating QR Code...",
+      "qrDialogError": "Failed to generate QR Code"
     },
     "table": {
       "title": "Your Recent Links",
       "headers": {
-        "shortLink": "Short Link",
-        "originalLink": "Original Link",
+        "shortLink": "Short url",
+        "originalLink": "Original url",
+        "shortCode": "Short code",
         "qrCode": "QR Code",
-        "clicks": "Clicks",
+        "clickCount": "Click count",
+        "clicks": "Click count",
+        "expiresAt": "Expires at",
+        "createdAt": "Created at",
         "status": "Status",
         "date": "Date"
       },
@@ -64,12 +72,17 @@
         "inactive": "Inactive"
       },
       "footer": "Register NOW to enjoy Unlimited History"
+    },
+    "pagination": {
+      "showing": "Showing {start} to {end} of {total} results",
+      "previous": "Previous",
+      "next": "Next"
     }
   },
   "header": {
     "login": "Login",
     "logout": "Logout",
-    "profile": "Profile"
+    "profile": "Dashboard"
   },
   "redirect": {
     "loading": "Redirecting...",

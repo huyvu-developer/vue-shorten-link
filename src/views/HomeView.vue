@@ -75,10 +75,8 @@ const shortenUrl = async () => {
 const copyShortLink = async () => {
   if (!shortLinkResult.value) return
 
-  const shortUrl = `${window.location.origin}/${shortLinkResult.value.shortCode}`
-
   try {
-    await navigator.clipboard.writeText(shortUrl)
+    await navigator.clipboard.writeText(shortLinkResult.value.shortUrl)
     copySuccess.value = true
     setTimeout(() => {
       copySuccess.value = false
@@ -92,10 +90,9 @@ const generateQRCode = async () => {
   if (!shortLinkResult.value) return
 
   isGeneratingQr.value = true
-  const shortUrl = `${window.location.origin}/${shortLinkResult.value.shortCode}`
 
   try {
-    const qrDataUrl = await QRCode.toDataURL(shortUrl, {
+    const qrDataUrl = await QRCode.toDataURL(shortLinkResult.value.shortUrl, {
       width: 200,
       margin: 2,
       color: {
@@ -111,15 +108,28 @@ const generateQRCode = async () => {
   }
 }
 
-const getShortUrl = () => {
-  if (!shortLinkResult.value) return ''
-  return `${window.location.origin}/${shortLinkResult.value.shortCode}`
+const downloadQRCode = () => {
+  if (!qrCodeDataUrl.value) return
+
+  try {
+    // Create a temporary link element
+    const link = document.createElement('a')
+    link.href = qrCodeDataUrl.value
+    link.download = `qr-code-${shortLinkResult.value?.shortCode || 'link'}.png`
+
+    // Trigger download
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  } catch (error) {
+    console.error('Failed to download QR code:', error)
+  }
 }
 </script>
 
 <template>
   <LDefault>
-    <main class="min-h-screen relative overflow-hidden pt-20 bg-primary">
+    <main class="min-h-screen relative overflow-hidden flex items-center justify-center bg-primary" :class="{ 'pt-20': shortLinkResult }">
       <!-- Hero Section -->
       <section class="relative z-10 py-10 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
         <div class="max-w-4xl mx-auto text-center">
@@ -138,7 +148,7 @@ const getShortUrl = () => {
           </p>
 
           <!-- URL Shortener -->
-          <div class="rounded-2xl p-8 mb-8 shadow-2xl bg-secondary border-border-primary">
+          <div class="rounded-2xl p-5 mb-5 shadow-2xl bg-secondary border-border-primary">
             <div class="flex flex-col sm:flex-row gap-4">
               <div class="flex-1 relative">
                 <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary">
@@ -154,12 +164,12 @@ const getShortUrl = () => {
                   v-model="urlInput"
                   :placeholder="$t('shortener.inputPlaceholder')"
                   type="url"
-                  class="w-full pl-12 pr-4 py-5 bg-transparent border-none outline-none text-lg rounded-lg focus:ring-2 focus:ring-brand-blue focus:ring-opacity-50 text-text-primary placeholder-text-secondary"
+                  class="w-full pl-12 pr-4 py-3 bg-transparent border-none outline-none text-lg rounded-lg focus:ring-2 focus:ring-brand-blue focus:ring-opacity-50 text-text-primary placeholder-text-secondary"
                 />
               </div>
               <button
                 @click="shortenUrl"
-                class="bg-gradient-to-r from-brand-blue to-brand-cyan hover:from-brand-blue/90 hover:to-brand-cyan/90 px-10 py-5 text-lg font-semibold w-full sm:w-auto rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-text-primary cursor-pointer"
+                class="bg-gradient-to-r from-brand-blue to-brand-cyan hover:from-brand-blue/90 hover:to-brand-cyan/90 px-10 py-3 text-lg font-semibold w-full sm:w-auto rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-text-primary cursor-pointer"
               >
                 {{ t('homepage.shortener.button') }}
               </button>
@@ -170,12 +180,12 @@ const getShortUrl = () => {
           <div
             ref="resultSectionRef"
             v-if="shortLinkResult"
-            class="rounded-2xl p-8 mb-8 shadow-2xl bg-secondary border-border-primary"
+            class="rounded-2xl p-5 mb-5 shadow-2xl bg-secondary border-border-primary"
           >
             <!-- Success Message -->
-            <div class="text-center mb-6">
+            <!-- <div class="text-center mb-6">
               <div
-                class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4"
+                class="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-4"
               >
                 <svg
                   class="w-8 h-8 text-green-600"
@@ -191,11 +201,10 @@ const getShortUrl = () => {
                   />
                 </svg>
               </div>
-              <h3 class="text-2xl font-bold text-text-primary mb-2">
+              <h3 class="text-xl font-bold text-text-primary mb-2">
                 {{ t('homepage.result.title') }}
               </h3>
-              <p class="text-lg text-text-secondary">{{ t('homepage.result.description') }}</p>
-            </div>
+            </div> -->
 
             <!-- Short Link Display -->
             <div class="bg-primary rounded-xl p-6 mb-6">
@@ -213,15 +222,15 @@ const getShortUrl = () => {
                     </svg>
                   </div>
                   <input
-                    :value="getShortUrl()"
+                    :value="shortLinkResult.shortUrl"
                     readonly
-                    class="w-full pl-12 pr-4 py-5 bg-transparent border-none outline-none text-lg rounded-lg text-text-primary font-mono"
+                    class="w-full pl-12 pr-4 py-3 bg-transparent border-none outline-none text-sm rounded-lg text-text-primary font-mono"
                   />
                 </div>
                 <button
                   @click="copyShortLink"
                   :class="[
-                    'bg-gradient-to-r hover:from-brand-blue/90 hover:to-brand-cyan/90 px-10 py-5 text-lg font-semibold w-full sm:w-auto rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-text-primary cursor-pointer flex items-center justify-center gap-2',
+                    'bg-gradient-to-r hover:from-brand-blue/90 hover:to-brand-cyan/90 px-4 py-3 text-sm font-semibold w-full sm:w-auto rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-text-primary cursor-pointer flex items-center justify-center gap-1',
                     copySuccess ? 'from-green-500 to-green-600' : 'from-brand-blue to-brand-cyan',
                   ]"
                 >
@@ -253,6 +262,45 @@ const getShortUrl = () => {
                       : t('homepage.result.copyButton')
                   }}
                 </button>
+                <button
+                  @click="generateQRCode"
+                  :disabled="isGeneratingQr"
+                  class="bg-gradient-to-r from-brand-cyan to-brand-blue hover:from-brand-cyan/90 hover:to-brand-blue/90 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-3 text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-white flex items-center gap-1 mx-auto"
+                >
+                  <svg
+                    v-if="!isGeneratingQr"
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    class="w-6 h-6 animate-spin"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                  {{
+                    isGeneratingQr
+                      ? t('homepage.result.generatingQrButton')
+                      : t('homepage.result.generateQrButton')
+                  }}
+                </button>
               </div>
 
               <!-- Original URL Info -->
@@ -266,54 +314,29 @@ const getShortUrl = () => {
 
             <!-- QR Code Section -->
             <div class="text-center">
-              <button
-                @click="generateQRCode"
-                :disabled="isGeneratingQr"
-                class="bg-gradient-to-r from-brand-cyan to-brand-blue hover:from-brand-cyan/90 hover:to-brand-blue/90 disabled:opacity-50 disabled:cursor-not-allowed px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-white flex items-center gap-3 mx-auto"
-              >
-                <svg
-                  v-if="!isGeneratingQr"
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
-                  />
-                </svg>
-                <svg
-                  v-else
-                  class="w-6 h-6 animate-spin"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                  />
-                </svg>
-                {{
-                  isGeneratingQr
-                    ? t('homepage.result.generatingQrButton')
-                    : t('homepage.result.generateQrButton')
-                }}
-              </button>
-
               <!-- QR Code Display -->
               <div v-if="qrCodeDataUrl" class="mt-8">
                 <div class="inline-block p-6 bg-white rounded-2xl shadow-xl">
                   <img :src="qrCodeDataUrl" alt="QR Code" class="w-48 h-48" />
                 </div>
-                <p class="text-lg text-text-secondary mt-4">
-                  {{ t('homepage.result.qrDescription') }}
-                </p>
+
+                <!-- Download Button -->
+                <div class="mt-4">
+                  <button
+                    @click="downloadQRCode"
+                    class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+                  >
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    {{ t('homepage.result.downloadQrButton') }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

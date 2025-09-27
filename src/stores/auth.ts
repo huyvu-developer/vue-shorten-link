@@ -14,12 +14,12 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => !!user.value)
 
   // Actions
-  const login = async (credentials: LoginRequest) => {
+  const login = async (payload: LoginRequest) => {
     isLoading.value = true
     error.value = null
 
     try {
-      const response = await authService.login(credentials)
+      const response = await authService.login(payload)
       if (response.statusCode === 201) {
         user.value = response.data.user
         setCookie('accessToken', response.data.accessToken)
@@ -35,21 +35,21 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const register = async (credentials: RegisterRequest) => {
+  const register = async (payload: RegisterRequest) => {
     isLoading.value = true
     error.value = null
 
     try {
-      if (credentials.password !== credentials.confirmPassword) {
+      if (payload.password !== payload.confirmPassword) {
         throw new Error('Mật khẩu xác nhận không khớp')
       }
 
-      const response = await authService.register(credentials)
-      if (response.statusCode === 201) {
-        user.value = response.data
-      } else {
-        error.value = 'Đăng ký thất bại. Vui lòng thử lại.'
-      }
+      const response = await authService.register({
+        fullName: payload.fullName,
+        email: payload.email,
+        password: payload.password,
+      })
+      return response.data
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Đăng ký thất bại. Vui lòng thử lại.'
       throw err
