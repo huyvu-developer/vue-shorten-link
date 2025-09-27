@@ -10,12 +10,11 @@ import { useRouter } from 'vue-router'
 const { t } = useI18n()
 const auth = useAuthStore()
 const isScrolled = ref(false)
-const showLoginDialog = ref(false)
-// const showRegisterDialog = ref(false)
+// Removed popup dialog refs - using page navigation
 const showUserMenu = ref(false)
 const userMenuRef = ref<HTMLElement | null>(null)
 const router = useRouter()
-let scrollTimeout: number | null = null
+let scrollTimeout: ReturnType<typeof setTimeout> | null = null
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
@@ -43,14 +42,15 @@ const handleScroll = () => {
   }, 10)
 }
 
-// Dialog handlers
-const openLoginDialog = () => {
-  showLoginDialog.value = true
+// Navigation handlers
+const navigateToLogin = () => {
+  router.push('/signin')
 }
 
 const logout = () => {
   auth.logout()
   showUserMenu.value = false
+  router.push('/')
 }
 
 const toggleUserMenu = async () => {
@@ -167,7 +167,7 @@ const toggleApplicationMenu = () => {
             <!-- Auth Buttons -->
             <div v-if="!auth.isAuthenticated" class="flex items-center gap-2">
               <button
-                @click="openLoginDialog"
+                @click="navigateToLogin"
                 class="px-4 py-2 rounded-xl transition-all duration-300 bg-secondary border border-border-primary text-text-secondary hover:text-text-primary hover:bg-accent cursor-pointer font-medium"
               >
                 <span class="text-sm">{{ t('header.login') }}</span>

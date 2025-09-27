@@ -23,3 +23,23 @@ html {
   background-color: var(--color-primary);
   color: var(--color-text-primary);
 }
+
+/* Fix autofill styling for dark theme */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #111827 inset !important;
+  -webkit-text-fill-color: #ffffffe6 !important;
+  background-color: #111827 !important;
+  color: #ffffffe6 !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+  caret-color: #ffffffe6 !important;
+}
+
+/* For Firefox autofill */
+input:-moz-autofill {
+  background-color: #111827 !important;
+  color: #ffffffe6 !important;
+  caret-color: #ffffffe6 !important;
+}

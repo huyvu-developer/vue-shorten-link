@@ -43,19 +43,27 @@
       "description": "URL rút gọn của bạn đã sẵn sàng sử dụng",
       "shortUrlLabel": "URL ngắn:",
       "originalUrlLabel": "URL gốc:",
-      "copyButton": "Sao chép liên kết",
+      "copyButton": "Sao chép",
       "copiedButton": "Đã sao chép!",
-      "generateQrButton": "Tạo mã QR",
+      "generateQrButton": "Mã QR",
       "generatingQrButton": "Đang tạo mã QR...",
-      "qrDescription": "Quét để truy cập URL rút gọn"
+      "downloadQrButton": "Tải mã QR",
+      "qrDescription": "Quét để truy cập URL rút gọn",
+      "qrDialogTitle": "Mã QR",
+      "qrDialogGenerating": "Đang tạo mã QR...",
+      "qrDialogError": "Không thể tạo mã QR"
     },
     "table": {
       "title": "Liên kết gần đây của bạn",
       "headers": {
         "shortLink": "Liên kết ngắn",
         "originalLink": "Liên kết gốc",
+        "shortCode": "Mã ngắn",
         "qrCode": "Mã QR",
+        "clickCount": "Lượt click",
         "clicks": "Lượt click",
+        "expiresAt": "Hết hạn",
+        "createdAt": "Ngày tạo",
         "status": "Trạng thái",
         "date": "Ngày"
       },
@@ -64,6 +72,11 @@
         "inactive": "Không hoạt động"
       },
       "footer": "Đăng ký NGAY để tận hưởng Lịch sử không giới hạn"
+    },
+    "pagination": {
+      "showing": "Hiển thị {start} đến {end} trong {total} kết quả",
+      "previous": "Trước",
+      "next": "Tiếp"
     }
   },
   "header": {
@@ -84,7 +97,7 @@
   },
   "sidebar": {
     "menu": "Menu",
-    "dashboard": "Trang chủ",
+    "dashboard": "Bảng điều khiển",
     "profile": "Hồ sơ",
     "shortLinks": "Liên kết ngắn",
     "analytics": "Phân tích",
@@ -97,32 +110,48 @@
   "auth": {
     "login": {
       "title": "Đăng nhập",
-      "description": "Nhập thông tin đăng nhập để truy cập tài khoản"
+      "description": "Nhập email và mật khẩu để đăng nhập!",
+      "back": "Quay lại",
+      "signIn": "Đăng nhập",
+      "signUp": "Đăng ký",
+      "loggingIn": "Đang đăng nhập...",
+      "keepLoggedIn": "Ghi nhớ đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "noAccount": "Chưa có tài khoản?",
+      "haveAccount": "Đã có tài khoản?"
     },
     "register": {
-      "title": "Tạo tài khoản",
-      "description": "Đăng ký để bắt đầu rút gọn URL"
+      "title": "Đăng ký",
+      "description": "Nhập email và mật khẩu để đăng ký!",
+      "back": "Quay lại",
+      "signUp": "Đăng ký",
+      "signIn": "Đăng nhập",
+      "registering": "Đang tạo tài khoản...",
+      "firstName": "Họ tên",
+      "agreeTerms": "Bằng việc tạo tài khoản, bạn đồng ý với",
+      "termsOfService": "Điều khoản sử dụng",
+      "privacyPolicy": "Chính sách bảo mật",
+      "haveAccount": "Đã có tài khoản?",
+      "noAccount": "Chưa có tài khoản?"
     },
     "name": "Họ và tên",
     "email": "Email",
     "password": "Mật khẩu",
     "confirmPassword": "Xác nhận mật khẩu",
-    "namePlaceholder": "Nhập họ và tên của bạn",
-    "emailPlaceholder": "Nhập email của bạn",
+    "namePlaceholder": "Nhập họ tên của bạn",
+    "emailPlaceholder": "info@gmail.com",
     "passwordPlaceholder": "Nhập mật khẩu của bạn",
     "confirmPasswordPlaceholder": "Xác nhận mật khẩu của bạn",
-    "rememberMe": "Ghi nhớ đăng nhập",
-    "forgotPassword": "Quên mật khẩu?",
-    "agreeTerms": "Tôi đồng ý với",
-    "termsOfService": "Điều khoản sử dụng",
-    "haveAccount": "Đã có tài khoản?",
-    "noAccount": "Chưa có tài khoản?",
-    "loggingIn": "Đang đăng nhập...",
-    "registering": "Đang tạo tài khoản...",
     "required": "là bắt buộc",
     "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
     "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
     "nameTooShort": "Tên phải có ít nhất 2 ký tự",
-    "passwordsDoNotMatch": "Mật khẩu xác nhận không khớp"
+    "passwordsDoNotMatch": "Mật khẩu xác nhận không khớp",
+    "nameRequired": "Họ tên là bắt buộc",
+    "emailRequired": "Email là bắt buộc",
+    "passwordRequired": "Mật khẩu là bắt buộc",
+    "nameMinLength": "Họ tên phải có ít nhất 2 ký tự",
+    "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự",
+    "passwordMismatch": "Mật khẩu không khớp"
   }
 }

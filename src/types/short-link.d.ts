@@ -13,6 +13,7 @@ export interface ShortLink {
   createdAt: string
   updatedAt: string
   deletedAt?: string | null
+  shortUrl: string
 }
 
 export interface ShortLinkRequestDto {

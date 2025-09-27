@@ -11,20 +11,45 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: '/me',
-      name: 'me',
+      path: '/dashboard',
+      name: 'dashboard',
       meta: {
         requiresAuth: true,
       },
-      component: () => import('../views/ProfileView.vue'),
-    }
+      component: () => import('../views/DashboardView.vue'),
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      meta: {
+        redirectIfAuthenticated: true,
+      },
+      component: () => import('../views/Auth/LoginView.vue'),
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      meta: {
+        redirectIfAuthenticated: true,
+      },
+      component: () => import('../views/Auth/RegisterView.vue'),
+    },
   ],
 })
 
 router.beforeEach(async (to, from, next) => {
-  if (to.meta.requiresAuth && !useAuthStore().isAuthenticated) {
-    return next('/')
+  const auth = useAuthStore()
+
+  // Redirect authenticated users away from auth pages
+  if (to.meta.redirectIfAuthenticated && auth.isAuthenticated) {
+    return next('/dashboard')
   }
+
+  // Redirect unauthenticated users to login for protected routes
+  if (to.meta.requiresAuth && !auth.isAuthenticated) {
+    return next('/signin')
+  }
+
   next()
 })
 

@@ -6,8 +6,8 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <footer class="py-12 bg-primary border-t border-border-primary">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <footer class="p-12 bg-primary border-t border-border-primary">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <!-- Logo and Description -->
         <div class="col-span-1 md:col-span-2">

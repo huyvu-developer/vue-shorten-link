@@ -3,20 +3,17 @@ import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import LanguageButton from './Partials/LanguageButton.vue'
-import Login from '@/components/Auth/VLogin.vue'
-import Register from '@/components/Auth/VRegister.vue'
+// Removed popup imports - now using page navigation
 import { APP_NAME } from '@/constants/env'
 import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const auth = useAuthStore()
 const isScrolled = ref(false)
-const showLoginDialog = ref(false)
-const showRegisterDialog = ref(false)
 const showUserMenu = ref(false)
 const userMenuRef = ref<HTMLElement | null>(null)
 const router = useRouter()
-let scrollTimeout: number | null = null
+let scrollTimeout: ReturnType<typeof setTimeout> | null = null
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
@@ -44,32 +41,15 @@ const handleScroll = () => {
   }, 10)
 }
 
-// Dialog handlers
-const openLoginDialog = () => {
-  showLoginDialog.value = true
-}
-
-const closeLoginDialog = () => {
-  showLoginDialog.value = false
-}
-
-const closeRegisterDialog = () => {
-  showRegisterDialog.value = false
-}
-
-const switchToRegister = () => {
-  showLoginDialog.value = false
-  showRegisterDialog.value = true
-}
-
-const switchToLogin = () => {
-  showRegisterDialog.value = false
-  showLoginDialog.value = true
+// Navigation handlers
+const navigateToLogin = () => {
+  router.push('/signin')
 }
 
 const logout = () => {
   auth.logout()
   showUserMenu.value = false
+  router.push('/')
 }
 
 const toggleUserMenu = async () => {
@@ -88,8 +68,8 @@ const handleClickOutside = (event: Event) => {
   }
 }
 
-const goToProfile = () => {
-  router.push('/me')
+const goToDashboard = () => {
+  router.push('/dashboard')
   showUserMenu.value = false
 }
 </script>
@@ -117,7 +97,7 @@ const goToProfile = () => {
         <!-- Auth Buttons -->
         <div v-if="!auth.isAuthenticated" class="flex items-center gap-2">
           <button
-            @click="openLoginDialog"
+            @click="navigateToLogin"
             class="px-4 py-2 rounded-xl transition-all duration-300 bg-secondary border border-border-primary text-text-secondary hover:text-text-primary cursor-pointer"
           >
             <span class="text-sm">{{ t('header.login') }}</span>
@@ -128,7 +108,7 @@ const goToProfile = () => {
         <div v-else class="relative" ref="userMenuRef">
           <button
             @click="toggleUserMenu"
-            class="relative inline-flex items-center gap-2 text-text-secondary transition-colors bg-secondary border border-border-primary rounded-full hover:text-text-primary h-10 pl-2 pr-3 hover:bg-accent"
+            class="relative inline-flex items-center gap-2 text-text-secondary transition-colors bg-secondary border border-border-primary rounded-xl hover:text-text-primary h-10 pl-2 pr-3 hover:bg-accent"
             :aria-expanded="showUserMenu"
             aria-haspopup="true"
           >
@@ -186,7 +166,7 @@ const goToProfile = () => {
 
                 <!-- Menu Items -->
                 <button
-                  @click="goToProfile"
+                  @click="goToDashboard"
                   class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:bg-accent hover:text-text-primary cursor-pointer transition-colors mx-2 rounded-lg"
                   role="menuitem"
                 >
@@ -224,17 +204,7 @@ const goToProfile = () => {
     </div>
   </header>
 
-  <!-- Auth Dialogs -->
-  <Login
-    :is-open="showLoginDialog"
-    @close="closeLoginDialog"
-    @switch-to-register="switchToRegister"
-  />
-  <Register
-    :is-open="showRegisterDialog"
-    @close="closeRegisterDialog"
-    @switch-to-login="switchToLogin"
-  />
+  <!-- Auth dialogs removed - now using page navigation -->
 </template>
 
 <style lang="scss" scoped></style>

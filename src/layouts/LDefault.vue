@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import VHeader from '@/components/Header/VHeader.vue'
-import VFooter from '@/components/common/VFooter.vue'
+import VFooter from '@/components/Footer/VFooter.vue'
 </script>
 
 <template>
-  <div>
+  <div class="min-h-screen flex flex-col">
     <VHeader />
-    <slot />
+    <slot class="flex-1" />
     <VFooter />
   </div>
 </template>
