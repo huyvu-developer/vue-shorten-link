@@ -110,11 +110,29 @@
   "auth": {
     "login": {
       "title": "Sign In",
-      "description": "Enter your credentials to access your account"
+      "description": "Enter your credentials to access your account",
+      "back": "Back",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "loggingIn": "Signing in...",
+      "keepLoggedIn": "Keep me logged in",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "haveAccount": "Already have an account?"
     },
     "register": {
       "title": "Create Account",
-      "description": "Sign up to start shortening URLs"
+      "description": "Sign up to start shortening URLs",
+      "back": "Back",
+      "signUp": "Sign Up",
+      "signIn": "Sign In",
+      "registering": "Creating account...",
+      "firstName": "Full Name",
+      "agreeTerms": "By creating an account means you agree to the",
+      "termsOfService": "Terms and Conditions",
+      "privacyPolicy": "Privacy Policy",
+      "haveAccount": "Already have an account?",
+      "noAccount": "Don't have an account?"
     },
     "name": "Full Name",
     "email": "Email",
@@ -136,6 +154,11 @@
     "invalidEmail": "Please enter a valid email address",
     "passwordTooShort": "Password must be at least 6 characters",
     "nameTooShort": "Name must be at least 2 characters",
-    "passwordsDoNotMatch": "Passwords do not match"
+    "passwordsDoNotMatch": "Passwords do not match",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "nameRequired": "Full name is required",
+    "nameMinLength": "Name must be at least 2 characters"
   }
 }
