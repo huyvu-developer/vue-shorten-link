@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, watch, reactive } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-// import { useI18n } from 'vue-i18n' // Not used currently
+import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import LBlank from '@/layouts/LBlank.vue'
 import VGridShape from '@/components/common/VGridShape.vue'
@@ -9,7 +9,7 @@ import type { RegisterRequest } from '@/types/auth'
 import { Icon } from '@iconify/vue'
 
 const router = useRouter()
-// const { t } = useI18n() // Removed as not currently used
+const { t } = useI18n()
 const auth = useAuthStore()
 
 // Form state
@@ -47,9 +47,9 @@ const isFormValid = computed(() => {
 // Validation functions
 const validateName = (name: string) => {
   if (!name) {
-    error.fullName = 'Họ tên là bắt buộc'
+    error.fullName = t('auth.nameRequired')
   } else if (name.length < 2) {
-    error.fullName = 'Họ tên phải có ít nhất 2 ký tự'
+    error.fullName = t('auth.nameMinLength')
   } else {
     error.fullName = ''
   }
@@ -58,9 +58,9 @@ const validateName = (name: string) => {
 const validateEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!email) {
-    error.email = 'Email là bắt buộc'
+    error.email = t('auth.emailRequired')
   } else if (!emailRegex.test(email)) {
-    error.email = 'Email không hợp lệ'
+    error.email = t('auth.invalidEmail')
   } else {
     error.email = ''
   }
@@ -68,11 +68,11 @@ const validateEmail = (email: string) => {
 
 const validatePassword = (password: string, confirmPassword: string) => {
   if (!password) {
-    error.password = 'Mật khẩu là bắt buộc'
+    error.password = t('auth.passwordRequired')
   } else if (password.length < 6) {
-    error.password = 'Mật khẩu phải có ít nhất 6 ký tự'
+    error.password = t('auth.passwordMinLength')
   } else if (password !== confirmPassword) {
-    error.password = 'Mật khẩu không khớp'
+    error.password = t('auth.passwordMismatch')
   } else {
     error.password = ''
   }
@@ -110,16 +110,16 @@ const handleSubmit = async () => {
               class="inline-flex items-center text-sm text-gray-400 transition-colors hover:text-gray-300"
             >
               <Icon icon="material-symbols:arrow-back-ios-new-rounded" />
-              <span class="ml-3">Back</span>
+              <span class="ml-3">{{ t('auth.register.back') }}</span>
             </router-link>
           </div>
           <!-- Form -->
           <div class="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
             <div class="mb-5 sm:mb-8">
               <h1 class="mb-2 font-semibold text-white/90 text-title-sm sm:text-title-md text-2xl">
-                Sign Up
+                {{ t('auth.register.title') }}
               </h1>
-              <p class="text-sm text-gray-400">Enter your email and password to sign up!</p>
+              <p class="text-sm text-gray-400">{{ t('auth.register.description') }}</p>
             </div>
             <div>
               <!-- <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
@@ -195,14 +195,14 @@ const handleSubmit = async () => {
                     <!-- First Name -->
                     <div class="sm:col-span-1">
                       <label for="fname" class="mb-1.5 block text-sm font-medium text-gray-400">
-                        First Name<span class="text-error-500">*</span>
+                        {{ t('auth.register.firstName') }}<span class="text-error-500">*</span>
                       </label>
                       <input
                         v-model="form.fullName"
                         type="text"
                         id="fname"
                         name="fname"
-                        placeholder="Enter your first name"
+                        :placeholder="t('auth.namePlaceholder')"
                         class="h-11 w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-2.5 text-sm text-white/90 shadow-theme-xs placeholder:text-white/30 focus:border-brand-800 focus:outline-hidden focus:ring-1 focus:ring-brand-500/10"
                         :class="{ 'border-red-500': error.fullName }"
                       />
@@ -232,14 +232,14 @@ const handleSubmit = async () => {
                       for="email"
                       class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
                     >
-                      Email<span class="text-error-500">*</span>
+                      {{ t('auth.email') }}<span class="text-error-500">*</span>
                     </label>
                     <input
                       v-model="form.email"
                       type="email"
                       id="email"
                       name="email"
-                      placeholder="Enter your email"
+                      :placeholder="t('auth.emailPlaceholder')"
                       class="h-11 w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-2.5 text-sm text-white/90 shadow-theme-xs placeholder:text-white/30 focus:border-brand-800 focus:outline-hidden focus:ring-1 focus:ring-brand-500/10"
                       :class="{ 'border-red-500': error.email }"
                     />
@@ -253,14 +253,14 @@ const handleSubmit = async () => {
                       for="password"
                       class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
                     >
-                      Password<span class="text-error-500">*</span>
+                      {{ t('auth.password') }}<span class="text-error-500">*</span>
                     </label>
                     <div class="relative">
                       <input
                         v-model="form.password"
                         :type="showPassword ? 'text' : 'password'"
                         id="password"
-                        placeholder="Enter your password"
+                        :placeholder="t('auth.passwordPlaceholder')"
                         class="h-11 w-full rounded-lg border border-gray-700 bg-gray-900 py-2.5 pl-4 pr-11 text-sm text-white/90 shadow-theme-xs placeholder:text-white/30 focus:border-brand-800 focus:outline-hidden focus:ring-1 focus:ring-brand-500/10"
                         :class="{ 'border-red-500': error.password }"
                       />
@@ -290,14 +290,14 @@ const handleSubmit = async () => {
                       for="confirmPassword"
                       class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
                     >
-                      Confirm Password<span class="text-error-500">*</span>
+                      {{ t('auth.confirmPassword') }}<span class="text-error-500">*</span>
                     </label>
                     <div class="relative">
                       <input
                         v-model="form.confirmPassword"
                         type="password"
                         id="confirmPassword"
-                        placeholder="Confirm your password"
+                        :placeholder="t('auth.confirmPasswordPlaceholder')"
                         class="h-11 w-full rounded-lg border border-gray-700 bg-gray-900 py-2.5 pl-4 pr-11 text-sm text-white/90 shadow-theme-xs placeholder:text-white/30 focus:border-brand-800 focus:outline-hidden focus:ring-1 focus:ring-brand-500/10"
                         :class="{ 'border-red-500': error.confirmPassword }"
                       />
@@ -334,10 +334,11 @@ const handleSubmit = async () => {
                           </div>
                         </div>
                         <p class="inline-block font-normal text-gray-400">
-                          By creating an account means you agree to the
-                          <span class="text-white/90"> Terms and Conditions, </span>
-                          and our
-                          <span class="text-white"> Privacy Policy </span>
+                          {{ t('auth.register.agreeTerms') }}
+                          <span class="text-white/90">
+                            {{ t('auth.register.termsOfService') }},
+                          </span>
+                          {{ t('auth.register.privacyPolicy') }}
                         </p>
                       </label>
                     </div>
@@ -354,19 +355,19 @@ const handleSubmit = async () => {
                           icon="material-symbols:refresh"
                           class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                         />
-                        Đăng ký...
+                        {{ t('auth.registering') }}
                       </span>
-                      <span v-else>Sign Up</span>
+                      <span v-else>{{ t('auth.register.signUp') }}</span>
                     </button>
                   </div>
                 </div>
               </form>
               <div class="mt-5">
                 <p class="text-sm font-normal text-center text-gray-400 sm:text-start">
-                  Already have an account?
-                  <router-link to="/signin" class="text-brand-400 hover:text-brand-600"
-                    >Sign In</router-link
-                  >
+                  {{ t('auth.register.haveAccount') }}
+                  <router-link to="/signin" class="text-brand-400 hover:text-brand-600">{{
+                    t('auth.register.signIn')
+                  }}</router-link>
                 </p>
               </div>
             </div>
