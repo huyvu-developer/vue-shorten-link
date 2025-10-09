@@ -70,7 +70,7 @@ const handleClickOutside = (event: Event) => {
 }
 
 const goToProfile = () => {
-  router.push('/me')
+  router.push('/dashboard')
   showUserMenu.value = false
 }
 const { toggleSidebar, toggleMobileSidebar, isMobileOpen } = useSidebar()

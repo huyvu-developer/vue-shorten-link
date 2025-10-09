@@ -86,18 +86,13 @@ const closeDialog = () => {
     @click="closeDialog"
   >
     <!-- Dialog Content -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full mx-4" @click.stop>
+    <div class="bg-gray-800 rounded-xl shadow-2xl max-w-md w-full mx-4" @click.stop>
       <!-- Header -->
-      <div
-        class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700"
-      >
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+      <div class="flex items-center justify-between p-6 border-b border-gray-700">
+        <h3 class="text-lg font-semibold text-white">
           {{ title }}
         </h3>
-        <button
-          @click="closeDialog"
-          class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-        >
+        <button @click="closeDialog" class="text-gray-400 hover:text-gray-300 transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               stroke-linecap="round"
@@ -114,10 +109,10 @@ const closeDialog = () => {
         <!-- Loading State -->
         <div v-if="isGeneratingQr" class="text-center py-8">
           <div
-            class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-4"
+            class="inline-flex items-center justify-center w-12 h-12 bg-blue-900/30 rounded-full mb-4"
           >
             <svg
-              class="w-6 h-6 text-blue-600 dark:text-blue-400 animate-spin"
+              class="w-6 h-6 text-blue-400 animate-spin"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -130,23 +125,21 @@ const closeDialog = () => {
               />
             </svg>
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
-            {{ t('homepage.result.qrDialogGenerating') }}
+          <p class="text-sm text-gray-400">
+            {{ t('shortLinks.qrDialog.generating') }}
           </p>
         </div>
 
         <!-- QR Code Display -->
         <div v-else-if="qrCodeDataUrl" class="text-center">
-          <div class="inline-block p-4 bg-white dark:bg-gray-700 rounded-lg shadow-lg mb-4">
+          <div class="inline-block p-4 bg-gray-700 rounded-lg shadow-lg mb-4">
             <img :src="qrCodeDataUrl" alt="QR Code" class="w-64 h-64" />
           </div>
 
           <!-- URL Info -->
           <div class="mb-4">
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">URL:</p>
-            <p
-              class="text-sm text-gray-900 dark:text-gray-100 break-all bg-gray-50 dark:bg-gray-700 p-2 rounded"
-            >
+            <p class="text-sm text-gray-400 mb-2">URL:</p>
+            <p class="text-sm text-gray-100 break-all bg-gray-700 p-2 rounded">
               {{ url }}
             </p>
           </div>
@@ -164,21 +157,16 @@ const closeDialog = () => {
                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               />
             </svg>
-            {{ t('homepage.result.downloadQrButton') }}
+            {{ t('shortLinks.qrDialog.download') }}
           </button>
         </div>
 
         <!-- Error State -->
         <div v-else class="text-center py-8">
           <div
-            class="inline-flex items-center justify-center w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full mb-4"
+            class="inline-flex items-center justify-center w-12 h-12 bg-red-900/30 rounded-full mb-4"
           >
-            <svg
-              class="w-6 h-6 text-red-600 dark:text-red-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -187,8 +175,8 @@ const closeDialog = () => {
               />
             </svg>
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
-            {{ t('homepage.result.qrDialogError') }}
+          <p class="text-sm text-gray-400">
+            {{ t('shortLinks.qrDialog.error') }}
           </p>
         </div>
       </div>

@@ -20,14 +20,18 @@
     "@tailwindcss/vite": "^4.1.13",
     "@types/qrcode": "^1.5.5",
     "@vueuse/core": "^13.9.0",
+    "apexcharts": "^5.3.5",
     "axios": "^1.12.1",
+    "flatpickr": "^4.6.13",
     "js-cookie": "^3.0.5",
     "pinia": "^3.0.3",
     "qrcode": "^1.5.4",
     "uuid": "^13.0.0",
     "vue": "^3.5.18",
+    "vue-flatpickr-component": "^12.0.0",
     "vue-i18n": "^11.1.12",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue3-apexcharts": "^1.8.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",

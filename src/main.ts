@@ -6,6 +6,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { useAuthStore } from '@/stores/auth'
+import VueApexCharts from 'vue3-apexcharts'
+import 'flatpickr/dist/flatpickr.css'
 
 // Define the type for plugin modules
 type PluginModule = {
@@ -26,6 +28,7 @@ app.use(createPinia())
 const authStore = useAuthStore()
 await authStore.authorize()
 app.use(router)
+app.component('ApexChart', VueApexCharts)
 
 /**
  * Register plugin
