@@ -6,6 +6,7 @@ import VFooter from '@/components/Footer/VFooter.vue'
 <template>
   <div class="min-h-screen flex flex-col">
     <VHeader />
+
     <slot class="flex-1" />
     <VFooter />
   </div>

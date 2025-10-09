@@ -103,6 +103,70 @@
     "analytics": "Analytics",
     "settings": "Settings"
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "dateRange": {
+      "title": "Select Date Range",
+      "placeholder": "Select date range",
+      "last30Days": "Last 30 days",
+      "last7Days": "Last 7 days",
+      "last90Days": "Last 90 days",
+      "custom": "Custom range"
+    },
+    "charts": {
+      "shortLinkAnalytics": "Short Link Analytics",
+      "clickAnalytics": "Click Analytics",
+      "browser": "Browser",
+      "device": "Device",
+      "os": "OS"
+    },
+    "metrics": {
+      "totalLinks": "Active Links",
+      "totalClicks": "Total Clicks",
+      "clickRate": "Click Rate",
+      "activeLinks": "Expired Links"
+    },
+    "noData": "No data available",
+    "loading": "Loading...",
+    "error": "Error loading data"
+  },
+  "shortLinks": {
+    "title": "Short Links",
+    "pageTitle": "Your Links",
+    "totalLinks": "total links",
+    "actions": {
+      "copy": "Copy link",
+      "copied": "Copied!",
+      "generateQR": "QR",
+      "viewQR": "View QR Code"
+    },
+    "table": {
+      "headers": {
+        "shortLink": "Short URL",
+        "originalLink": "Original URL",
+        "shortCode": "Short Code",
+        "qrCode": "QR Code",
+        "clickCount": "Click Count",
+        "createdAt": "Created At"
+      },
+      "clicks": "clicks",
+      "noData": "No links found",
+      "loading": "Loading links..."
+    },
+    "pagination": {
+      "showing": "Showing {start} to {end} of {total} results",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "qrDialog": {
+      "title": "QR Code",
+      "description": "Scan to visit the shortened URL",
+      "download": "Download QR Code",
+      "close": "Close",
+      "generating": "Generating QR Code...",
+      "error": "Failed to generate QR Code"
+    }
+  },
   "badge": {
     "new": "New",
     "pro": "Pro"

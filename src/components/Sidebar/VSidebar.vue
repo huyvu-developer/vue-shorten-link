@@ -43,11 +43,11 @@ const menuGroups = computed<MenuGroup[]>(() => [
       //   name: t('sidebar.profile'),
       //   path: '/profile',
       // },
-      // {
-      //   name: t('sidebar.shortLinks'),
-      //   icon: 'material-symbols:link',
-      //   path: '/short-links',
-      // },
+      {
+        name: t('sidebar.shortLinks'),
+        icon: 'material-symbols:link',
+        path: '/dashboard/short-links',
+      },
       // {
       //   name: t('sidebar.analytics'),
       //   icon: 'material-symbols:analytics',
@@ -70,6 +70,11 @@ const isActive = (path: string) => {
     // Exact match
     if (currentPath === path) {
       return true
+    }
+
+    // For dashboard, only match exact path to avoid conflicts with sub-routes
+    if (path === '/dashboard') {
+      return currentPath === '/dashboard'
     }
 
     // Check if current path starts with target path (for detail routes)
@@ -237,10 +242,7 @@ const endTransition = (el: Element) => {
                       isActive(item.path) ? 'text-white drop-shadow-sm' : 'text-text-secondary',
                     ]"
                   >
-                    <Icon
-                      :icon="item.icon"
-                      class="w-5 h-5 text-[#7592ff]"
-                    />
+                    <Icon :icon="item.icon" class="w-5 h-5 text-[#7592ff]" />
                   </span>
                   <span
                     v-if="isExpanded || isHovered || isMobileOpen"

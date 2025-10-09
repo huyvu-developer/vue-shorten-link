@@ -82,7 +82,7 @@
   "header": {
     "login": "Đăng nhập",
     "logout": "Đăng xuất",
-    "profile": "Quản lý tài khoản"
+    "profile": "Bảng điều khiển"
   },
   "redirect": {
     "loading": "Đang chuyển hướng...",
@@ -102,6 +102,70 @@
     "shortLinks": "Liên kết ngắn",
     "analytics": "Phân tích",
     "settings": "Cài đặt"
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "dateRange": {
+      "title": "Chọn khoảng thời gian",
+      "placeholder": "Chọn khoảng thời gian",
+      "last30Days": "30 ngày qua",
+      "last7Days": "7 ngày qua",
+      "last90Days": "90 ngày qua",
+      "custom": "Tùy chỉnh"
+    },
+    "charts": {
+      "shortLinkAnalytics": "Phân tích liên kết ngắn",
+      "clickAnalytics": "Phân tích lượt click",
+      "browser": "Trình duyệt",
+      "device": "Thiết bị",
+      "os": "Hệ điều hành"
+    },
+    "metrics": {
+      "totalLinks": "Liên kết hoạt động",
+      "totalClicks": "Tổng lượt click",
+      "clickRate": "Tỷ lệ click",
+      "activeLinks": "Liên kết hết hạn"
+    },
+    "noData": "Không có dữ liệu",
+    "loading": "Đang tải...",
+    "error": "Lỗi tải dữ liệu"
+  },
+  "shortLinks": {
+    "title": "Liên kết ngắn",
+    "pageTitle": "Liên kết của bạn",
+    "totalLinks": "liên kết",
+    "actions": {
+      "copy": "Sao chép liên kết",
+      "copied": "Đã sao chép!",
+      "generateQR": "QR",
+      "viewQR": "Xem mã QR"
+    },
+    "table": {
+      "headers": {
+        "shortLink": "Liên kết ngắn",
+        "originalLink": "Liên kết gốc",
+        "shortCode": "Mã ngắn",
+        "qrCode": "Mã QR",
+        "clickCount": "Lượt click",
+        "createdAt": "Ngày tạo"
+      },
+      "clicks": "lượt click",
+      "noData": "Không tìm thấy liên kết",
+      "loading": "Đang tải liên kết..."
+    },
+    "pagination": {
+      "showing": "Hiển thị {start} đến {end} trong {total} kết quả",
+      "previous": "Trước",
+      "next": "Tiếp"
+    },
+    "qrDialog": {
+      "title": "Mã QR",
+      "description": "Quét để truy cập liên kết ngắn",
+      "download": "Tải mã QR",
+      "close": "Đóng",
+      "generating": "Đang tạo mã QR...",
+      "error": "Không thể tạo mã QR"
+    }
   },
   "badge": {
     "new": "Mới",

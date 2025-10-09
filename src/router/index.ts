@@ -16,7 +16,15 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
       },
-      component: () => import('../views/DashboardView.vue'),
+      component: () => import('../views/Dashboard/IndexView.vue'),
+    },
+    {
+      path: '/dashboard/short-links',
+      name: 'dashboard-short-links',
+      meta: {
+        requiresAuth: true,
+      },
+      component: () => import('../views/Dashboard/ShortLinkView.vue'),
     },
     {
       path: '/signin',
