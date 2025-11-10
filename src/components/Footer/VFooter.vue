@@ -83,7 +83,7 @@ const { t } = useI18n()
         </p>
         <div class="flex items-center gap-4 mt-4 sm:mt-0">
           <a
-            href="https://www.linkedin.com/in/huyvu-developer"
+            href="https://www.linkedin.com/in/huyvu-dev"
             target="_blank"
             class="text-text-secondary hover:text-text-primary transition-colors"
           >
